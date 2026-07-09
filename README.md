@@ -62,3 +62,15 @@ python walkforward.py                     # full study, ~3 minutes
 
 MIT. If it stops one over-fitted backtest from going live, it has paid
 for itself.
+
+**`heston_lab.py`** — the Heston (1993) stochastic-volatility model,
+priced via characteristic functions ("little Heston trap" formulation,
+Gauss-Legendre), with a neural forward-approximator in the
+Horvath-Muguruza-Tomas "Deep Learning Volatility" style: 9,000
+model-generated implied-vol surfaces train an MLP that reproduces the
+params → surface map to **0.23 vol points** at a **~45,000× speedup** —
+the calibration engine pattern, runnable with zero market data.
+Bonus lesson in the git history: rev1 failed with every implied vol
+pinned at 150% — a one-line bisection bug caught by a degenerate-case
+test (σ_v → 0 must recover Black-Scholes exactly). Verify machinery
+before trusting verdicts.
